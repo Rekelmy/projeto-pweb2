@@ -1,0 +1,199 @@
+
+import tkinter as tk
+import tkinter.messagebox as tkmessageBox
+
+usuarios = []
+nomeUsuario = None
+loginUsuario = None
+senhaUsuario = None
+class Usuario:
+    nome = None
+    login = None
+    senha = None
+    def __init__(self, nome, login, senha):
+
+        self.nome = nome
+        self.login = login
+        self.senha = senha
+
+    def getNome(self):
+        return self.nome
+    def getSenha(self):
+        return self.senha
+    def getLogin(self):
+        return self.login
+
+
+    
+            
+
+#criar a função de cadastro        
+def cadastro():
+    def cadastrar():
+        global nomeUsuario, loginUsuario, senhaUsuario
+        nomeUsuario = nome.get()
+        loginUsuario = login.get()
+        senhaUsuario = senha.get()
+        def btOk_click():
+            result = tkmessageBox.askquestion("tem certeza??")
+            if result == 'yes':
+                cadastroSucesso.destroy()
+                JanelCadastro.destroy()
+                
+                
+        usuario = Usuario(nome.get(), login.get, senha.get)
+        usuarios.append(usuario)   
+        cadastroSucesso = tk.Tk()
+        labelSucesso = tk.Label(cadastroSucesso, text="Usuário cadastrado com sucesso")
+        labelSucesso.pack()
+        cadastroSucesso["bg"] = "red"
+        btOk = tk.Button(cadastroSucesso, text="Ok", command = btOk_click)
+        btOk.pack()
+
+        
+        
+    global nomeUsuario, senhaUsuario, loginUsuario
+    #janela de cadastro
+    JanelCadastro = tk.Tk()    
+    labelNome = tk.Label(JanelCadastro, text="Digite seu nome")
+    labelNome.pack()
+    labelNome.place(x=150, y=80)
+    
+    nome = tk.Entry(JanelCadastro)
+    nome.pack()
+    nome.place(x=150, y=100)
+    nomeUsuario = nome.get()
+    
+    labelLogin = tk.Label(JanelCadastro, text="Digite o login")
+    labelLogin.pack()
+    labelLogin.place(x=150, y=120)
+    
+    login = tk.Entry(JanelCadastro)
+    login.pack()
+    login.place(x=150, y=140)
+    loginUsuario = login.get()
+    
+    labelSenha = tk.Label(JanelCadastro, text="Digite uma senha")
+    labelSenha.pack()
+    labelSenha.place(x=150, y=160)
+    
+    senha = tk.Entry(JanelCadastro)
+    senha.pack()
+    senha.place(x=150, y=180)
+    senhaUsuario = senha.get()
+    
+    realizarCadastro = tk.Button(JanelCadastro,text="Cadastrar-se",command=cadastrar)
+    realizarCadastro.pack()
+    realizarCadastro.place(x=150, y=200)
+    JanelCadastro["bg"] = "cyan"
+    JanelCadastro.geometry("400x300")
+    JanelCadastro.mainloop()
+
+
+
+    
+def telaLogin():
+    global usuarios, loginUsuario, senhaUsuario
+    
+    def logar():
+        senhaUs = senha.get()
+        loginUs = login.get()
+        print(senhaUs,loginUs)
+        for usuario in usuarios:
+            print(usuario.getLogin())
+            if usuario.getLogin() == loginUs and usuario.getSenha() == senhaUs:
+                loginSucesso = tk.Tk()
+                labelSucesso = tk.Label(loginSucesso, text="Usuário logado")
+                labelSucesso.pack()
+                
+                btOk = tk.Button(loginSucesso, text="Ok", command=btOk_click)
+                btOk.pack()
+                loginSucesso.mainloop()
+                
+    loginUsuario = None
+    senhaUsuario = None
+    
+    janelLogin = tk.Tk()
+    janelLogin.geometry("500x400")
+    janelLogin["bg"] = "red"
+    
+    labelLogin = tk.Label(janelLogin, text="Digite o login")
+    labelLogin.pack()
+    labelLogin.place(x=150, y=80)
+    login = tk.Entry(janelLogin)
+    login.pack()
+    login.place(x=150, y=100)
+    loginUsuario = login.get()
+    
+    labelSenha = tk.Label(janelLogin, text="Digite a senha")
+    labelSenha.pack()
+    labelSenha.place(x=150, y=120)
+    senha = tk.Entry(janelLogin)
+    senha.pack()
+    senha.place(x=150, y=140)
+    senhaUsuario = senha.get()
+    
+    realizarLogin = tk.Button(janelLogin,text="Realizar Login",command=logar)
+    realizarLogin.pack()
+    realizarLogin.place(x=150, y=160)
+    
+    janelLogin.geometry("400x400")
+    janelLogin.mainloop()
+
+
+    
+
+#janela de fundo principal
+root = tk.Tk()
+#título da janela
+root.title("Menu Pricipal")
+#mudando a cor da janela
+root["bg"] = "gray"
+
+
+
+#def filmes():
+#imagem = tk.PhotoImage(file="1.jpg")
+#w = tk.Label(root, image=imagem)
+#w.imagem = imagem
+#w.pack()
+
+
+def mostrarCategorias():
+    janelaCategoria = tk.Tk()
+    janelaCategoria.geometry("800x700")
+    janelaCategoria["bg"] = "red"
+    janelaCategoria.tittle("Categorias")
+    janelaCategoria.mainloop()
+
+
+    labelJanela = tk.Label(janelacategoria, text="Escolha a categoria")
+    
+    def abrirCateg():
+        comedia =  tk.Button(janelaCategoria, text="comedia")
+        comedia.pack()
+        comedia.place(x=100, y=100)
+        acao =  tk.Button(janelaCategoria, text="acao")
+        acao.pack()
+        acao.place(x=100, y=130)
+        terror =  tk.Button(janelaCategoria, text="terror")
+        terror.pack()
+        terror.place(x=100, y=160)
+        romance =  tk.Button(janelaCategoria, text="romance")
+        romance.pack()
+        romance.place(x=100, y=190)
+        investigação = tk.Button(janelaCategoria, text="investigação")
+        investigacao.pack()
+        investigacao.place(x=100, y=220)
+
+#definindo os botões
+categorias = tk.Button( text="Categorias", command = mostrarCategorias )
+cadastro = tk.Button(root,text="Cadastrar-se",command=cadastro)
+cadastro.pack()
+cadastro.place(x=150, y=100)
+login = tk.Button(root,text= "Login", command = telaLogin)
+login.pack()
+login.place(x=150, y=125)
+root.geometry("400x300")
+root.mainloop()
+
